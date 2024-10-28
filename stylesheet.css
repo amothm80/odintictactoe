@@ -1,0 +1,77 @@
+body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 100px;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.ttt-body{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: min-content;
+    height: 300px;
+}
+
+.ttt-cell{
+    width: 100px;
+    height: 100px;
+}
+
+#ttt-cell-1{
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+#ttt-cell-2{
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+#ttt-cell-3{
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+#ttt-cell-4{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+#ttt-cell-5{
+    border: 1px solid black;
+}
+#ttt-cell-6{
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+#ttt-cell-7{
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+}
+#ttt-cell-8{
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+}
+#ttt-cell-9{
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+}

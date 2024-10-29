@@ -178,6 +178,15 @@ function gameBoard() {
   return { resetGame, playTurn, gameStatus, endGame };
 }
 
+let xocells = document.querySelectorAll(".ttt-cell");
+
+for (const cell of xocells){
+    cell.addEventListener("click", () =>{
+        cell.innerHTML = `<img src="images/alpha-x.png">`;
+    })
+}
+
+
 function displayBoard(board) {
   let b = board.slice(0);
   for (i in b) {

@@ -36,42 +36,47 @@ header{
     height: 100px;
 }
 
-#ttt-cell-1{
+#ttt-cell-0{
     border-right: 1px solid black;
     border-bottom: 1px solid black;
 }
-#ttt-cell-2{
+#ttt-cell-1{
     border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+#ttt-cell-2{
     border-left: 1px solid black;
     border-bottom: 1px solid black;
 }
 #ttt-cell-3{
-    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
     border-bottom: 1px solid black;
 }
 #ttt-cell-4{
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-}
-#ttt-cell-5{
     border: 1px solid black;
 }
-#ttt-cell-6{
+#ttt-cell-5{
     border-top: 1px solid black;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
+}
+#ttt-cell-6{
+    border-right: 1px solid black;
+    border-top: 1px solid black;
 }
 #ttt-cell-7{
     border-right: 1px solid black;
+    border-left: 1px solid black;
     border-top: 1px solid black;
 }
 #ttt-cell-8{
-    border-right: 1px solid black;
     border-left: 1px solid black;
     border-top: 1px solid black;
 }
-#ttt-cell-9{
-    border-left: 1px solid black;
-    border-top: 1px solid black;
+
+img{
+    height: 99px;
+    width: 99px;
 }

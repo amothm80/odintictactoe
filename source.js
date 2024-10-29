@@ -23,8 +23,6 @@ game board function:
     
 
 */
-
-
 function createPlayer(name){
     let score = 0;
     const getName = () => name;
@@ -73,3 +71,5 @@ function createPlayer(name){
         return board;
     }
 
+    return {playTurn, getTurn,resetGame}
+}

@@ -3,8 +3,9 @@ body{
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 100px;
+    /* justify-content: center; */
+    justify-content: flex-start;
+    gap: 20px;
 }
 
 header{
@@ -12,6 +13,25 @@ header{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.player-info{
+    align-self: center;
+    display: grid;
+    grid-template-columns: auto minmax(99px,99px) 1fr 0.5fr minmax(20px,20px);
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+input{
+    max-height: 17px;
+    align-self: center;
+}
+
+.game-controls{
+    align-self: center;
+
 }
 
 .main-body{
@@ -79,4 +99,9 @@ header{
 img{
     height: 99px;
     width: 99px;
+}
+
+.turnFlag{
+    height: 30px;
+    width: 30px;
 }

@@ -178,13 +178,64 @@ function gameBoard() {
   return { resetGame, playTurn, gameStatus, endGame };
 }
 
+function gameController(player1,player2){
+  let playerx = player1;
+  let playero = player2;
+  let tttBoard = gameBoard();
+  return{playerx,playero,tttBoard}
+}
+
+let game = ''
+
+let newGameButton = document.querySelector("#newGame");
 let xocells = document.querySelectorAll(".ttt-cell");
 
-for (const cell of xocells){
-    cell.addEventListener("click", () =>{
-        cell.innerHTML = `<img src="images/alpha-x.png">`;
-    })
+function displayBoardHTML(tttBoard){
+  tttBoardVar = tttBoard.gameStatus().boardState;
+  for (cell of xocells){
+    cellid = cell.getAttribute('id')
+    if (tttBoard[parseInt(cellid[9]) == '']){
+      cell.innerHTML = ``;
+    }
+    if (tttBoard[parseInt(cellid[9]) == 'X']){
+      cell.innerHTML = `<img src="images/alpha-x.png">`;
+    }
+    if (tttBoard[parseInt(cellid[9]) == 'O']){
+      cell.innerHTML = `<img src="images/alpha-O.png">`;
+    }   
+  }
 }
+
+newGameButton.addEventListener("click", ()=>{
+  player1name = document.querySelector("#playerXInput").value
+  player2name = document.querySelector("#playerOInput").value
+
+  game = gameController(createPlayer(player1name),createPlayer(player2name));
+  game.tttBoard.resetGame();
+  game.tttBoard.playTurn(1);
+  game.tttBoard.playTurn(2);
+  game.tttBoard.playTurn(3);
+  displayBoardHTML(game.tttBoard)
+})
+
+
+
+for (const cell of xocells){
+  cell.addEventListener("click", () =>{
+    if (game.gameStatus().currentPlayer == 'X')
+     { cell.innerHTML = `<img src="images/alpha-x.png">`;}
+    else if (game.gameStatus().currentPlayer == 'O'){
+      cell.innerHTML = `<img src="images/alpha-o.png">`;
+    }
+  })}
+
+
+
+
+
+
+
+
 
 
 function displayBoard(board) {

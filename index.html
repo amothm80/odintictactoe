@@ -9,7 +9,14 @@
 </head>
 <body>
     <header><h1>Tic Tac Toe</h1></header>
-
+    <div class="player-info">
+        <img class="turnFlag" src="images/flag-variant-outline.png"><img src="images/alpha-x.png"><input id="playerXInput"><h2>Score:</h2><h2 id="scoreX"></h2>
+        <img class="turnFlag" src="images/flag-variant-outline.png"><img src="images/alpha-o.png"><input id="playerOInput"><h2>Score:</h2><h2 id="scoreO"></h2>
+    </div>
+    <div class="game-controls">
+        <button id="newGame">New Game</button>
+        <button id="newRound">New Round</button>
+    </div>
     <div class="main-body">
         <div class="ttt-body">
             <div class="ttt-cell" id="ttt-cell-0"></div>

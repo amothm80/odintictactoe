@@ -178,65 +178,83 @@ function gameBoard() {
   return { resetGame, playTurn, gameStatus, endGame };
 }
 
-function gameController(player1,player2){
+function gameController(player1, player2) {
   let playerx = player1;
   let playero = player2;
   let tttBoard = gameBoard();
-  return{playerx,playero,tttBoard}
+  return { playerx, playero, tttBoard };
 }
 
-let game = ''
+let game = "";
 
 let newGameButton = document.querySelector("#newGame");
 let xocells = document.querySelectorAll(".ttt-cell");
 
-function displayBoardHTML(tttBoard){
-  tttBoardVar = tttBoard.gameStatus().boardState;
-  for (cell of xocells){
-    cellid = cell.getAttribute('id')
-    if (tttBoard[parseInt(cellid[9]) == '']){
+function displayBoardHTML(tttBoard) {
+  const tttBoardState = tttBoard.gameStatus().boardState;
+  for (cell of xocells) {
+    cellid = cell.getAttribute("id");
+    if (tttBoardState[parseInt(cellid[9])] == "") {
       cell.innerHTML = ``;
     }
-    if (tttBoard[parseInt(cellid[9]) == 'X']){
+    if (tttBoardState[parseInt(cellid[9])] == "X") {
       cell.innerHTML = `<img src="images/alpha-x.png">`;
     }
-    if (tttBoard[parseInt(cellid[9]) == 'O']){
-      cell.innerHTML = `<img src="images/alpha-O.png">`;
-    }   
+    if (tttBoardState[parseInt(cellid[9])] == "O") {
+      cell.innerHTML = `<img src="images/alpha-o.png">`;
+    }
   }
 }
 
-newGameButton.addEventListener("click", ()=>{
-  player1name = document.querySelector("#playerXInput").value
-  player2name = document.querySelector("#playerOInput").value
+function changeFlag(currentPlayer) {
+  const flagO = document.querySelector("#turnFlagO");
+  const flagX = document.querySelector("#turnFlagX");
+  if (currentPlayer == "X") {
+    flagX.style.display = "block";
+    flagO.style.display = "none";
+  } else if (currentPlayer == "O") {
+    flagX.style.display = "none";
+    flagO.style.display = "block";
+  }
+}
 
-  game = gameController(createPlayer(player1name),createPlayer(player2name));
-  game.tttBoard.resetGame();
-  game.tttBoard.playTurn(1);
-  game.tttBoard.playTurn(2);
-  game.tttBoard.playTurn(3);
-  displayBoardHTML(game.tttBoard)
-})
+function updateScore() {}
 
+newGameButton.addEventListener("click", () => {
+  const player1name = document.querySelector("#playerXInput").value;
+  const player2name = document.querySelector("#playerOInput").value;
 
+  game = gameController(createPlayer(player1name), createPlayer(player2name));
+  const gameStatus = game.tttBoard.resetGame();
+  changeFlag(gameStatus.currentPlayer);
+  displayBoardHTML(game.tttBoard);
+});
 
-for (const cell of xocells){
-  cell.addEventListener("click", () =>{
-    if (game.gameStatus().currentPlayer == 'X')
-     { cell.innerHTML = `<img src="images/alpha-x.png">`;}
-    else if (game.gameStatus().currentPlayer == 'O'){
-      cell.innerHTML = `<img src="images/alpha-o.png">`;
+// newRoundButton.addEventListener("click"), () =>{
+
+// }
+
+for (const cell of xocells) {
+  cell.addEventListener("click", () => {
+    const cellid = cell.getAttribute("id");
+    const gameStatus = game.tttBoard.gameStatus();
+    const currentPlayer = gameStatus.currentPlayer;
+    if (gameStatus.gameActive) {
+      turnResult = game.tttBoard.playTurn(parseInt(cellid[9]));
+      if (turnResult.callSuccess) {
+        if (currentPlayer == "X") {
+          cell.innerHTML = `<img src="images/alpha-x.png">`;
+        } else if (currentPlayer == "O") {
+          cell.innerHTML = `<img src="images/alpha-o.png">`;
+        }
+        changeFlag(turnResult.currentPlayer);
+        if (turnResult.winState.win) {
+          alert(`winner is ${turnResult.winState.winner}`);
+        }
+      }
     }
-  })}
-
-
-
-
-
-
-
-
-
+  });
+}
 
 function displayBoard(board) {
   let b = board.slice(0);

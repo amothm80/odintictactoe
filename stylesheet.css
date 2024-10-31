@@ -1,18 +1,32 @@
+:root{
+    --blue: #93c5fd;
+    --grey: #d1d5db;
+    --white:#f8fafc;
+
+}
+
 body{
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: var(--white);
     /* justify-content: center; */
-    justify-content: flex-start;
-    gap: 20px;
+    align-items: center;
+    /* gap: 20px; */
+    /* padding: 0; */
+    margin: 0;
 }
 
 header{
+    background-color: var(--blue    );
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 50%;
+    /* border-radius: 17px; */
+    padding: 10px;
 }
 
 .player-info{
@@ -22,6 +36,10 @@ header{
     align-items: center;
     justify-content: center;
     gap: 10px;
+    /* border-radius: 17px; */
+    background-color: var(--blue);
+    width: 50%;
+    padding: 10px;
 }
 
 input{
@@ -30,17 +48,28 @@ input{
 }
 
 .game-controls{
+    display: flex;
+    background-color: var(--grey);
     align-self: center;
+    width: 50%;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+    /* border-radius: 17px; */
 
 }
 
 .main-body{
-    width: 100%;
+    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    /* border-radius: 17px; */
+    background-color: var(--grey);
+    padding: 10px;
+
 }
 
 .ttt-body{
@@ -49,6 +78,9 @@ input{
     grid-template-rows: 1fr 1fr 1fr;
     width: min-content;
     height: 300px;
+    margin: 20px;
+    border-radius: 17px;
+    background-color: var(--white);
 }
 
 .ttt-cell{
@@ -111,3 +143,8 @@ img{
     width: 30px;
 }
 
+dialog form{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5px;
+}

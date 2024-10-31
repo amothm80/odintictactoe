@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="source.js" defer></script>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="stylesheet.css" />
     <title>Tic Tac Toe</title>
-</head>
-<body>
+  </head>
+  <body>
     <header><h1>Tic Tac Toe</h1></header>
-    <div class="player-info">
-        <div class="turnFlag"><img id="turnFlagX" src="images/flag-variant-outline.png"></div><img src="images/alpha-x.png"><input id="playerXInput"><h2>Score:</h2><h2 id="scoreX"></h2>
-        <div class="turnFlag"><img id="turnFlagO" src="images/flag-variant-outline.png"></div><img src="images/alpha-o.png"><input id="playerOInput"><h2>Score:</h2><h2 id="scoreO"></h2>
-    </div>
     <div class="game-controls">
         <button id="newGame">New Game</button>
         <button id="newRound">New Round</button>
+        <button id="endGame">End Game</button>
+      </div>
+    <div class="player-info">
+      <div class="turnFlag">
+        <img id="turnFlagX" src="images/flag-variant-outline.png" />
+      </div>
+      <img src="images/alpha-x.png" /><h2 id="playerXDisplay"></h2>
+      <h2>Score:</h2>
+      <h2 id="scoreX"></h2>
+      <div class="turnFlag">
+        <img id="turnFlagO" src="images/flag-variant-outline.png" />
+      </div>
+      <img src="images/alpha-o.png" /><h2 id="playerODisplay"></h2>
+      <h2>Score:</h2>
+      <h2 id="scoreO"></h2>
     </div>
+
     <div class="main-body">
-        <div class="ttt-body">
-            <div class="ttt-cell" id="ttt-cell-0"></div>
-            <div class="ttt-cell" id="ttt-cell-1"></div>
-            <div class="ttt-cell" id="ttt-cell-2"></div>
-            <div class="ttt-cell" id="ttt-cell-3"></div>
-            <div class="ttt-cell" id="ttt-cell-4"></div>
-            <div class="ttt-cell" id="ttt-cell-5"></div>
-            <div class="ttt-cell" id="ttt-cell-6"></div>
-            <div class="ttt-cell" id="ttt-cell-7"></div>
-            <div class="ttt-cell" id="ttt-cell-8"></div>
-        </div>
+      <div class="ttt-body">
+        <div class="ttt-cell" id="ttt-cell-0"></div>
+        <div class="ttt-cell" id="ttt-cell-1"></div>
+        <div class="ttt-cell" id="ttt-cell-2"></div>
+        <div class="ttt-cell" id="ttt-cell-3"></div>
+        <div class="ttt-cell" id="ttt-cell-4"></div>
+        <div class="ttt-cell" id="ttt-cell-5"></div>
+        <div class="ttt-cell" id="ttt-cell-6"></div>
+        <div class="ttt-cell" id="ttt-cell-7"></div>
+        <div class="ttt-cell" id="ttt-cell-8"></div>
+      </div>
     </div>
-</body>
+    <dialog id="newGameDialog">
+        <h4>Input Player Names</h4>
+        <!-- <div> -->
+        <form action="">
+          <label for="playerXInput">Player X Name: </label
+          ><input id="playerXName" type="text" name="playerXInput" required autofocus/>
+          <label for="playerOInput">Player O Name: </label
+          ><input id="playerOName" type="text" name="playerOInput" required />
+
+          <button type="submit" formmethod="dialog" id="newGameAction">Add Book</button>
+          <button id="newGameCancel">Cancel</button>
+        </form>
+        <!-- </div> -->
+      </dialog>
+  </body>
 </html>

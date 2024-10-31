@@ -188,6 +188,7 @@ function gameController(player1, player2) {
 let game = "";
 
 let newGameButton = document.querySelector("#newGame");
+let newRoundButton = document.querySelector("#newRound");
 let xocells = document.querySelectorAll(".ttt-cell");
 
 function displayBoardHTML(tttBoard) {
@@ -206,6 +207,13 @@ function displayBoardHTML(tttBoard) {
   }
 }
 
+function clearFlags(){
+  const flagO = document.querySelector("#turnFlagO");
+  const flagX = document.querySelector("#turnFlagX");
+    flagO.style.display = "none";
+    flagX.style.display = "none";
+}
+
 function changeFlag(currentPlayer) {
   const flagO = document.querySelector("#turnFlagO");
   const flagX = document.querySelector("#turnFlagX");
@@ -218,21 +226,63 @@ function changeFlag(currentPlayer) {
   }
 }
 
-function updateScore() {}
+function displayPlayerNames(playerX, playerO){
+  const playerXname = document.querySelector("#playerXDisplay");
+  const playerOname = document.querySelector("#playerODisplay");
+  playerXname.innerHTML = playerX;
+  playerOname.innerHTML = playerO;
+}
+
+function clearPlayerNames(){
+  const playerXname = document.querySelector("#playerXDisplay");
+  const playerOname = document.querySelector("#playerODisplay");
+  playerXname.innerHTML = '';
+  playerOname.innerHTML = '';
+}
+
+function updateScore() {
+  const scoreX = document.querySelector("#scoreX");
+  const scoreO = document.querySelector("#scoreO");
+  scoreX.innerHTML = game.playerx.getScore();
+  scoreO.innerHTML = game.playero.getScore();
+}
 
 newGameButton.addEventListener("click", () => {
-  const player1name = document.querySelector("#playerXInput").value;
-  const player2name = document.querySelector("#playerOInput").value;
+  document.getElementById("playerXName").value = "";
+  document.getElementById("playerOName").value = "";
+  newGameDialog.showModal();
+});
 
-  game = gameController(createPlayer(player1name), createPlayer(player2name));
+newRoundButton.addEventListener("click", () =>{
   const gameStatus = game.tttBoard.resetGame();
   changeFlag(gameStatus.currentPlayer);
+  updateScore();
   displayBoardHTML(game.tttBoard);
 });
 
-// newRoundButton.addEventListener("click"), () =>{
+newGameDialog.addEventListener("close", () => {
+  //   openCheck(addBookDialog);
+    handleUserInput(newGameDialog.returnValue);
+  });
 
-// }
+function handleUserInput(returnValue) {
+  const player1name = document.querySelector("#playerXName").value;
+  const player2name = document.querySelector("#playerOName").value;
+
+  game = gameController(createPlayer(player1name), createPlayer(player2name));
+  game.playerx.resetScore();
+  game.playero.resetScore();
+  const gameStatus = game.tttBoard.resetGame();
+  changeFlag(gameStatus.currentPlayer);
+  updateScore();
+  displayPlayerNames(player1name,player2name);
+  displayBoardHTML(game.tttBoard); 
+}
+
+newGameCancel.addEventListener("click", () => {
+  newGameDialog.close();
+});
+
 
 for (const cell of xocells) {
   cell.addEventListener("click", () => {
@@ -249,12 +299,22 @@ for (const cell of xocells) {
         }
         changeFlag(turnResult.currentPlayer);
         if (turnResult.winState.win) {
+          if (turnResult.winState.winner == 'X'){
+            game.playerx.increaseScore();
+          }
+          if (turnResult.winState.winner == 'O'){
+            game.playero.increaseScore();
+          }
+          updateScore();
+          clearFlags();
           alert(`winner is ${turnResult.winState.winner}`);
         }
       }
     }
   });
 }
+
+
 
 function displayBoard(board) {
   let b = board.slice(0);
@@ -269,3 +329,6 @@ function displayBoard(board) {
         ${b[6]}|${b[7]}|${b[8]}
         `);
 }
+
+
+clearFlags();

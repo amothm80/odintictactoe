@@ -204,15 +204,30 @@ function gameBoard() {
 //   return { playerx, playero, tttBoard };
 // }
 
-const game = {
-  playerx: "",
-  playero: "",
-  tttBoard: gameBoard(),
-  setPlayers: function (player1, player2) {
+// const game = {
+//   playerx: "",
+//   playero: "",
+//   tttBoard: gameBoard(),
+//   setPlayers: function (player1, player2) {
+//     this.playerx = player1;
+//     this.playero = player2;
+//   },
+// };
+
+
+//a self executing function
+const game = (function(){
+  //the below variables couldve been hidden but i exposed them.
+  //setplayer and getplayer could have been used instead
+  playerx= "";
+  playero= "";
+  tttBoard = gameBoard();
+  setPlayers = function (player1, player2) {
     this.playerx = player1;
     this.playero = player2;
-  },
-};
+  };
+  return {playerx, playero, tttBoard, setPlayers};
+})()
 
 function displayBoardHTML(tttBoard) {
   const tttBoardState = tttBoard.gameStatus().boardState;

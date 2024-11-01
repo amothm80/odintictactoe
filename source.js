@@ -23,6 +23,17 @@ game board function:
     
 
 */
+
+let newGameDialog = document.querySelector("#newGameDialog");
+let newGameCancel = document.querySelector("#newGameCancel");
+let newGameAction = document.querySelector("#newGameAction");
+let game = "";
+
+let newGameButton = document.querySelector("#newGame");
+let newRoundButton = document.querySelector("#newRound");
+let endGameButton = document.querySelector("#endGame");
+let xocells = document.querySelectorAll(".ttt-cell");
+
 function createPlayer(name) {
   let score = 0;
   const getName = () => name;
@@ -185,12 +196,6 @@ function gameController(player1, player2) {
   return { playerx, playero, tttBoard };
 }
 
-let game = "";
-
-let newGameButton = document.querySelector("#newGame");
-let newRoundButton = document.querySelector("#newRound");
-let xocells = document.querySelectorAll(".ttt-cell");
-
 function displayBoardHTML(tttBoard) {
   const tttBoardState = tttBoard.gameStatus().boardState;
   for (cell of xocells) {
@@ -207,11 +212,11 @@ function displayBoardHTML(tttBoard) {
   }
 }
 
-function clearFlags(){
+function clearFlags() {
   const flagO = document.querySelector("#turnFlagO");
   const flagX = document.querySelector("#turnFlagX");
-    flagO.style.display = "none";
-    flagX.style.display = "none";
+  flagO.style.display = "none";
+  flagX.style.display = "none";
 }
 
 function changeFlag(currentPlayer) {
@@ -226,18 +231,18 @@ function changeFlag(currentPlayer) {
   }
 }
 
-function displayPlayerNames(playerX, playerO){
+function displayPlayerNames(playerX, playerO) {
   const playerXname = document.querySelector("#playerXDisplay");
   const playerOname = document.querySelector("#playerODisplay");
   playerXname.innerHTML = playerX;
   playerOname.innerHTML = playerO;
 }
 
-function clearPlayerNames(){
+function clearPlayerNames() {
   const playerXname = document.querySelector("#playerXDisplay");
   const playerOname = document.querySelector("#playerODisplay");
-  playerXname.innerHTML = '';
-  playerOname.innerHTML = '';
+  playerXname.innerHTML = "";
+  playerOname.innerHTML = "";
 }
 
 function updateScore() {
@@ -247,42 +252,69 @@ function updateScore() {
   scoreO.innerHTML = game.playero.getScore();
 }
 
+function gameActive(){
+  newGameButton.style.display = 'none';
+  newRoundButton.style.display = 'block';
+  endGameButton.style.display = 'block';
+}
+function gameInactive(){
+  newGameButton.style.display = 'block';
+  newRoundButton.style.display = 'none';
+  endGameButton.style.display = 'none';
+}
+
 newGameButton.addEventListener("click", () => {
   document.getElementById("playerXName").value = "";
   document.getElementById("playerOName").value = "";
   newGameDialog.showModal();
 });
 
-newRoundButton.addEventListener("click", () =>{
+newRoundButton.addEventListener("click", () => {
   const gameStatus = game.tttBoard.resetGame();
   changeFlag(gameStatus.currentPlayer);
   updateScore();
   displayBoardHTML(game.tttBoard);
 });
 
-newGameDialog.addEventListener("close", () => {
-  //   openCheck(addBookDialog);
-    handleUserInput(newGameDialog.returnValue);
-  });
+endGameButton.addEventListener("click", ()=>{
+  const gameStatus = game.tttBoard.endGame();
+  clearFlags();
+  updateScore();
+  displayBoardHTML(game.tttBoard);
+  gameInactive();
+})
 
 function handleUserInput(returnValue) {
-  const player1name = document.querySelector("#playerXName").value;
-  const player2name = document.querySelector("#playerOName").value;
+  if (returnValue == "newGame") {
+    const player1name = document.querySelector("#playerXName").value;
+    const player2name = document.querySelector("#playerOName").value;
 
-  game = gameController(createPlayer(player1name), createPlayer(player2name));
-  game.playerx.resetScore();
-  game.playero.resetScore();
-  const gameStatus = game.tttBoard.resetGame();
-  changeFlag(gameStatus.currentPlayer);
-  updateScore();
-  displayPlayerNames(player1name,player2name);
-  displayBoardHTML(game.tttBoard); 
+    game = gameController(createPlayer(player1name), createPlayer(player2name));
+    game.playerx.resetScore();
+    game.playero.resetScore();
+    const gameStatus = game.tttBoard.resetGame();
+    changeFlag(gameStatus.currentPlayer);
+    updateScore();
+    displayPlayerNames(player1name, player2name);
+    displayBoardHTML(game.tttBoard);
+    gameActive();
+  }
 }
+
+newGameDialog.addEventListener("close", () => {
+  //   openCheck(addBookDialog);
+  handleUserInput(newGameDialog.returnValue);
+});
+
+newGameAction.addEventListener("click", (e) => {
+  e.preventDefault();
+  newGameDialog.close("newGame");
+});
 
 newGameCancel.addEventListener("click", () => {
   newGameDialog.close();
+  gameInactive();
 });
-
 
 for (const cell of xocells) {
   cell.addEventListener("click", () => {
@@ -299,10 +331,10 @@ for (const cell of xocells) {
         }
         changeFlag(turnResult.currentPlayer);
         if (turnResult.winState.win) {
-          if (turnResult.winState.winner == 'X'){
+          if (turnResult.winState.winner == "X") {
             game.playerx.increaseScore();
           }
-          if (turnResult.winState.winner == 'O'){
+          if (turnResult.winState.winner == "O") {
             game.playero.increaseScore();
           }
           updateScore();
@@ -313,8 +345,6 @@ for (const cell of xocells) {
     }
   });
 }
-
-
 
 function displayBoard(board) {
   let b = board.slice(0);
@@ -330,5 +360,5 @@ function displayBoard(board) {
         `);
 }
 
-
+gameInactive();
 clearFlags();

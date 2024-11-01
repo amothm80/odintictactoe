@@ -96,8 +96,12 @@ function gameBoard() {
 
   const checkWin = () => {
     let boardCopy = board.slice(0);
+    let boardFull = true;
     for (i in boardCopy) {
-      if (boardCopy[i] == "") boardCopy[i] = i;
+      if (boardCopy[i] == "") {
+        boardCopy[i] = i;
+        boardFull = false;
+      }
     }
     if (boardCopy[0] == boardCopy[1] && boardCopy[1] == boardCopy[2]) {
       gameActive = false;
@@ -124,7 +128,11 @@ function gameBoard() {
       gameActive = false;
       return { win: true, winner: board[6] };
     } else {
-      return { win: false, winner: "" };
+      if (boardFull == true) {
+        return { win: true, winner: "" };
+      } else {
+        return { win: false, winner: "" };
+      }
     }
   };
 
@@ -252,15 +260,15 @@ function updateScore() {
   scoreO.innerHTML = game.playero.getScore();
 }
 
-function gameActive(){
-  newGameButton.style.display = 'none';
-  newRoundButton.style.display = 'block';
-  endGameButton.style.display = 'block';
+function gameActive() {
+  newGameButton.style.display = "none";
+  newRoundButton.style.display = "block";
+  endGameButton.style.display = "block";
 }
-function gameInactive(){
-  newGameButton.style.display = 'block';
-  newRoundButton.style.display = 'none';
-  endGameButton.style.display = 'none';
+function gameInactive() {
+  newGameButton.style.display = "block";
+  newRoundButton.style.display = "none";
+  endGameButton.style.display = "none";
 }
 
 newGameButton.addEventListener("click", () => {
@@ -276,13 +284,13 @@ newRoundButton.addEventListener("click", () => {
   displayBoardHTML(game.tttBoard);
 });
 
-endGameButton.addEventListener("click", ()=>{
+endGameButton.addEventListener("click", () => {
   const gameStatus = game.tttBoard.endGame();
   clearFlags();
   updateScore();
   displayBoardHTML(game.tttBoard);
   gameInactive();
-})
+});
 
 function handleUserInput(returnValue) {
   if (returnValue == "newGame") {
@@ -339,7 +347,11 @@ for (const cell of xocells) {
           }
           updateScore();
           clearFlags();
-          alert(`winner is ${turnResult.winState.winner}`);
+          if (turnResult.winState.winner == "") {
+            alert(`game is a tie`);
+          } else {
+            alert(`winner is ${turnResult.winState.winner}`);
+          }
         }
       }
     }

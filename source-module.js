@@ -219,6 +219,7 @@ function gameBoard() {
 const game = (function(){
   //the below variables couldve been hidden but i exposed them.
   //setplayer and getplayer could have been used instead
+  //all the lines of this function will be executed normally.
   playerx= "";
   playero= "";
   tttBoard = gameBoard();

@@ -1,4 +1,4 @@
-function gameBoard() {
+export function gameBoard() {
     let currentPlayer = "X";
     let gameActive = false;
     let board = ["", "", "", "", "", "", "", "", ""];
@@ -51,7 +51,7 @@ function gameBoard() {
     const checkWin = () => {
       let boardCopy = board.slice(0);
       let boardFull = true;
-      for (i in boardCopy) {
+      for (let i in boardCopy) {
         if (boardCopy[i] == "") {
           boardCopy[i] = i;
           boardFull = false;
@@ -150,3 +150,4 @@ function gameBoard() {
   
     return { resetGame, playTurn, gameStatus, endGame };
   }
+

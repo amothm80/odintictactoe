@@ -1,28 +1,4 @@
-/*
-
-user function: 
-    name
-    score
-
-game function:
-    add users
-    initialize game board
-    operate game board
-    get winner
-
-game board function:
-    initialize board array
-    get users
-    gameloop:
-        whos turn is it
-        input in a location
-            collision check
-        win condition check
-    return winner
-    
-    
-
-*/
+import { gameBoard } from "./source-gameboard.js";
 
 let newGameDialog = document.querySelector("#newGameDialog");
 let newGameCancel = document.querySelector("#newGameCancel");
@@ -43,187 +19,15 @@ function createPlayer(name) {
   return { getName, getScore, increaseScore, resetScore };
 }
 
-// function gameBoard(player1,player2){
-function gameBoard() {
-  let currentPlayer = "X";
-  let gameActive = false;
-  let board = ["", "", "", "", "", "", "", "", ""];
-
-  const resetGame = () => {
-    currentPlayer = "X";
-    gameActive = true;
-    board = ["", "", "", "", "", "", "", "", ""];
-    return {
-      callSuccess: true,
-      winState: "",
-      boardState: board,
-      currentPlayer: getPlayer(),
-      gameActive: getGameState(),
-      message: "game started",
-    };
-  };
-
-  const endGame = () => {
-    currentPlayer = "X";
-    gameActive = false;
-    board = ["", "", "", "", "", "", "", "", ""];
-    return {
-      callSuccess: true,
-      winState: checkWin(),
-      boardState: board,
-      currentPlayer: getPlayer(),
-      gameActive: getGameState(),
-      message: "game ended",
-    };
-  };
-
-  const getPlayer = () => {
-    return currentPlayer;
-  };
-
-  const getGameState = () => {
-    return gameActive;
-  };
-
-  const changePlayer = () => {
-    if (currentPlayer == "O") {
-      currentPlayer = "X";
-    } else {
-      currentPlayer = "O";
-    }
-    return currentPlayer;
-  };
-
-  const checkWin = () => {
-    let boardCopy = board.slice(0);
-    let boardFull = true;
-    for (i in boardCopy) {
-      if (boardCopy[i] == "") {
-        boardCopy[i] = i;
-        boardFull = false;
-      }
-    }
-    if (boardCopy[0] == boardCopy[1] && boardCopy[1] == boardCopy[2]) {
-      gameActive = false;
-      return { win: true, winner: board[0] };
-    } else if (boardCopy[3] == boardCopy[4] && boardCopy[4] == boardCopy[5]) {
-      gameActive = false;
-      return { win: true, winner: board[5] };
-    } else if (boardCopy[6] == boardCopy[7] && boardCopy[7] == boardCopy[8]) {
-      gameActive = false;
-      return { win: true, winner: board[8] };
-    } else if (boardCopy[0] == boardCopy[3] && boardCopy[3] == boardCopy[6]) {
-      gameActive = false;
-      return { win: true, winner: board[6] };
-    } else if (boardCopy[1] == boardCopy[4] && boardCopy[4] == boardCopy[7]) {
-      gameActive = false;
-      return { win: true, winner: board[7] };
-    } else if (boardCopy[2] == boardCopy[5] && boardCopy[5] == boardCopy[8]) {
-      gameActive = false;
-      return { win: true, winner: board[8] };
-    } else if (boardCopy[0] == boardCopy[4] && boardCopy[4] == boardCopy[8]) {
-      gameActive = false;
-      return { win: true, winner: board[8] };
-    } else if (boardCopy[2] == boardCopy[4] && boardCopy[4] == boardCopy[6]) {
-      gameActive = false;
-      return { win: true, winner: board[6] };
-    } else {
-      if (boardFull == true) {
-        return { win: true, winner: "" };
-      } else {
-        return { win: false, winner: "" };
-      }
-    }
-  };
-
-  const playTurn = (location) => {
-    let turnResult = {};
-    if (gameActive == true) {
-      if (location < 0 || location > 8) {
-        turnResult = {
-          callSuccess: false,
-          winState: "",
-          boardState: board,
-          currentPlayer: getPlayer(),
-          gameActive: getGameState(),
-          message: "location invalid",
-        };
-      } else {
-        if (board[location] != "") {
-          turnResult = {
-            callSuccess: false,
-            winState: "",
-            boardState: board,
-            currentPlayer: getPlayer(),
-            gameActive: getGameState(),
-            message: "location taken",
-          };
-        } else {
-          board[location] = getPlayer();
-          turnResult = {
-            callSuccess: true,
-            winState: checkWin(),
-            boardState: board,
-            currentPlayer: changePlayer(),
-            gameActive: getGameState(),
-            message: "",
-          };
-        }
-      }
-    } else {
-      turnResult = {
-        callSuccess: false,
-        winState: "",
-        boardState: "",
-        currentPlayer: "",
-        gameActive: getGameState(),
-        message: "game inactive",
-      };
-    }
-    return turnResult;
-  };
-
-  const gameStatus = () => {
-    return {
-      callSuccess: true,
-      winState: checkWin(),
-      boardState: board,
-      currentPlayer: getPlayer(),
-      gameActive: getGameState(),
-      message: "",
-    };
-  };
-
-  return { resetGame, playTurn, gameStatus, endGame };
-}
-
-// function gameController(player1, player2) {
-//   let playerx = player1;
-//   let playero = player2;
-//   let tttBoard = gameBoard();
-//   return { playerx, playero, tttBoard };
-// }
-
-// const game = {
-//   playerx: "",
-//   playero: "",
-//   tttBoard: gameBoard(),
-//   setPlayers: function (player1, player2) {
-//     this.playerx = player1;
-//     this.playero = player2;
-//   },
-// };
-
-
 //a self executing function
 const game = (function(){
   //the below variables couldve been hidden but i exposed them.
   //setplayer and getplayer could have been used instead
   //all the lines of this function will be executed normally.
-  playerx= "";
-  playero= "";
-  tttBoard = gameBoard();
-  setPlayers = function (player1, player2) {
+  let playerx= "";
+  let playero= "";
+  let tttBoard = gameBoard();
+  let setPlayers = function (player1, player2) {
     this.playerx = player1;
     this.playero = player2;
   };
@@ -232,8 +36,8 @@ const game = (function(){
 
 function displayBoardHTML(tttBoard) {
   const tttBoardState = tttBoard.gameStatus().boardState;
-  for (cell of xocells) {
-    cellid = cell.getAttribute("id");
+  for (let cell of xocells) {
+    let cellid = cell.getAttribute("id");
     if (tttBoardState[parseInt(cellid[9])] == "") {
       cell.innerHTML = ``;
     }
@@ -373,7 +177,7 @@ for (const cell of xocells) {
     const gameStatus = game.tttBoard.gameStatus();
     const currentPlayer = gameStatus.currentPlayer;
     if (gameStatus.gameActive) {
-      turnResult = game.tttBoard.playTurn(parseInt(cellid[9]));
+      let turnResult = game.tttBoard.playTurn(parseInt(cellid[9]));
       if (turnResult.callSuccess) {
         if (currentPlayer == "X") {
           cell.innerHTML = `<img src="images/alpha-x.png">`;

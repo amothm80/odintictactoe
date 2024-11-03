@@ -246,24 +246,38 @@ function displayBoardHTML(tttBoard) {
   }
 }
 
-function clearFlags() {
-  const flagO = document.querySelector("#turnFlagO");
-  const flagX = document.querySelector("#turnFlagX");
-  flagO.style.display = "none";
-  flagX.style.display = "none";
+// function clearFlags() {
+//   const flagO = document.querySelector("#turnFlagO");
+//   const flagX = document.querySelector("#turnFlagX");
+//   flagO.style.display = "none";
+//   flagX.style.display = "none";
+// }
+
+// function changeFlag(currentPlayer) {
+//   const flagO = document.querySelector("#turnFlagO");
+//   const flagX = document.querySelector("#turnFlagX");
+//   if (currentPlayer == "X") {
+//     flagX.style.display = "block";
+//     flagO.style.display = "none";
+//   } else if (currentPlayer == "O") {
+//     flagX.style.display = "none";
+//     flagO.style.display = "block";
+//   }
+// }
+function commentary(comment){
+  const com_cell = document.querySelector("#commentary-cell");
+  com_cell.innerHTML = comment;
 }
 
-function changeFlag(currentPlayer) {
-  const flagO = document.querySelector("#turnFlagO");
-  const flagX = document.querySelector("#turnFlagX");
+function player_comment(currentPlayer){
   if (currentPlayer == "X") {
-    flagX.style.display = "block";
-    flagO.style.display = "none";
+    commentary("X's Turn");
   } else if (currentPlayer == "O") {
-    flagX.style.display = "none";
-    flagO.style.display = "block";
+    commentary("O's Turn");
   }
 }
+
+
 
 function displayPlayerNames(playerX, playerO) {
   const playerXname = document.querySelector("#playerXDisplay");
@@ -305,14 +319,15 @@ newGameButton.addEventListener("click", () => {
 
 newRoundButton.addEventListener("click", () => {
   const gameStatus = game.tttBoard.resetGame();
-  changeFlag(gameStatus.currentPlayer);
+  commentary("")
   updateScore();
   displayBoardHTML(game.tttBoard);
 });
 
 endGameButton.addEventListener("click", () => {
   const gameStatus = game.tttBoard.endGame();
-  clearFlags();
+  // clearFlags();
+  commentary("");
   updateScore();
   displayBoardHTML(game.tttBoard);
   gameInactive();
@@ -328,7 +343,8 @@ function handleUserInput(returnValue) {
     game.playerx.resetScore();
     game.playero.resetScore();
     const gameStatus = game.tttBoard.resetGame();
-    changeFlag(gameStatus.currentPlayer);
+    // changeFlag(gameStatus.currentPlayer);
+    player_comment(gameStatus.currentPlayer);
     updateScore();
     displayPlayerNames(player1name, player2name);
     displayBoardHTML(game.tttBoard);
@@ -364,7 +380,7 @@ for (const cell of xocells) {
         } else if (currentPlayer == "O") {
           cell.innerHTML = `<img src="images/alpha-o.png">`;
         }
-        changeFlag(turnResult.currentPlayer);
+        player_comment(turnResult.currentPlayer);
         if (turnResult.winState.win) {
           if (turnResult.winState.winner == "X") {
             game.playerx.increaseScore();
@@ -373,11 +389,10 @@ for (const cell of xocells) {
             game.playero.increaseScore();
           }
           updateScore();
-          clearFlags();
           if (turnResult.winState.winner == "") {
-            alert(`game is a tie`);
+            commentary("game is a tie");
           } else {
-            alert(`winner is ${turnResult.winState.winner}`);
+            commentary(`Winner is ${turnResult.winState.winner}`);
           }
         }
       }
@@ -400,4 +415,4 @@ function displayBoard(board) {
 }
 
 gameInactive();
-clearFlags();
+commentary("")

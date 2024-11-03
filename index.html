@@ -10,26 +10,20 @@
   </head>
   <body>
     <header><h1>Tic Tac Toe</h1></header>
-    <div class="game-controls">
-        <button id="newGame">New Game</button>
-        <button id="newRound">New Round</button>
-        <button id="endGame">End Game</button>
-      </div>
-    <div class="player-info">
-      <div class="turnFlag">
-        <img id="turnFlagX" src="images/flag-variant-outline.png" />
-      </div>
-      <img src="images/alpha-x.png" /><h2 id="playerXDisplay"></h2>
-      <h2>Score:</h2>
-      <h2 id="scoreX"></h2>
-      <div class="turnFlag">
-        <img id="turnFlagO" src="images/flag-variant-outline.png" />
-      </div>
-      <img src="images/alpha-o.png" /><h2 id="playerODisplay"></h2>
-      <h2>Score:</h2>
-      <h2 id="scoreO"></h2>
-    </div>
 
+    <div class="player-info">
+      <div class="player-info-cell">
+        <h4>Player X</h4>
+        <h4 class="playerdisplay" id="playerXDisplay"></h4>
+        <p class="score" id="scoreX"></p>
+      </div>
+      <div class="player-info-cell">
+        <h4>Player O</h4>
+        <h4 class="playerdisplay" id="playerODisplay"></h4>
+        <p class="score" id="scoreO"></p>
+      </div>
+    </div>
+    <div id="commentary"><p id="commentary-cell"></p></div>
     <div class="main-body">
       <div class="ttt-body">
         <div class="ttt-cell" id="ttt-cell-0"></div>
@@ -43,6 +37,11 @@
         <div class="ttt-cell" id="ttt-cell-8"></div>
       </div>
     </div>
+    <div class="game-controls">
+      <button id="newGame">New Game</button>
+      <button id="newRound">New Round</button>
+      <button id="endGame">End Game</button>
+    </div>
     <dialog id="newGameDialog">
         <h4>Input Player Names</h4>
         <!-- <div> -->
@@ -51,7 +50,6 @@
           ><input id="playerXName" type="text" name="playerXInput" required autofocus/>
           <label for="playerOInput">Player O Name: </label
           ><input id="playerOName" type="text" name="playerOInput" required />
-
           <button id="newGameAction" value="submit">New Game</button>
           <button formmethod="dialog" id="newGameCancel" value="cancel">Cancel</button>
         </form>
